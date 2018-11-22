@@ -3,6 +3,7 @@ package com.oocl.cultivation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 class ParkingBoy implements ParkingAssistant {
     private final List<ParkingLot> parkingLots = new ArrayList<>();
@@ -26,13 +27,18 @@ class ParkingBoy implements ParkingAssistant {
     }
 
     private ParkingResult tryPark(Car car) {
-        ParkingResult lastResult = null;
-        for (ParkingLot parkingLot : parkingLots) {
-            lastResult = parkingLot.park(car);
-            if (lastResult.isSuccess()) break;
+        Optional<ParkingLot> parkingLot = findParkingCandidate();
+        if (!parkingLot.isPresent()) {
+            return new ParkingResult("The parking lot is full.");
         }
 
-        return lastResult;
+        return parkingLot.get().park(car);
+    }
+
+    private Optional<ParkingLot> findParkingCandidate() {
+        return parkingLots.stream()
+            .filter(p -> p.getAvailableParkingPosition() > 0)
+            .findFirst();
     }
 
     @Override

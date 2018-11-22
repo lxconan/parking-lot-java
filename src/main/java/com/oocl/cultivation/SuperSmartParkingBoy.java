@@ -24,15 +24,22 @@ public class SuperSmartParkingBoy implements ParkingAssistant {
     }
 
     private ParkingResult tryPark(Car car) {
-        Optional<ParkingLot> max = parkingLots.stream().max((left, right) -> {
-            double leftEmptyRate = (double) left.getAvailableParkingPosition() / left.getCapacity();
-            double rightEmptyRate = (double) right.getAvailableParkingPosition() / right.getCapacity();
-            return Double.compare(leftEmptyRate, rightEmptyRate);
-        });
-        ParkingLot parkingLot = max.orElseThrow(
-            () -> new RuntimeException("Cannot find parking lot with largest empty rate."));
+        Optional<ParkingLot> parkingLot = findParkingCandidate();
+        if (!parkingLot.isPresent()) {
+            return new ParkingResult("The parking lot is full.");
+        }
 
-        return parkingLot.park(car);
+        return parkingLot.get().park(car);
+    }
+
+    private Optional<ParkingLot> findParkingCandidate() {
+        return parkingLots.stream()
+                .filter(p -> p.getAvailableParkingPosition() > 0)
+                .max((left, right) -> {
+                    double leftEmptyRate = (double) left.getAvailableParkingPosition() / left.getCapacity();
+                    double rightEmptyRate = (double) right.getAvailableParkingPosition() / right.getCapacity();
+                    return Double.compare(leftEmptyRate, rightEmptyRate);
+                });
     }
 
     @Override

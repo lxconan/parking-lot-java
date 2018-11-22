@@ -27,15 +27,22 @@ public class SmartParkingBoy implements ParkingAssistant {
     }
 
     private ParkingResult tryPark(Car car) {
-        Optional<ParkingLot> max = parkingLots.stream().max((left, right) -> {
-            int leftCount = left.getAvailableParkingPosition();
-            int rightCount = right.getAvailableParkingPosition();
-            return Integer.compare(leftCount, rightCount);
-        });
+        Optional<ParkingLot> parkingLot = findParkingCandidate();
+        if (!parkingLot.isPresent()) {
+            return new ParkingResult("The parking lot is full.");
+        }
 
-        ParkingLot parkingLot = max.orElseThrow(
-            () -> new RuntimeException("Cannot find parking lot with largest empty positions count."));
-        return parkingLot.park(car);
+        return parkingLot.get().park(car);
+    }
+
+    private Optional<ParkingLot> findParkingCandidate() {
+        return parkingLots.stream()
+            .filter(p -> p.getAvailableParkingPosition() > 0)
+            .max((left, right) -> {
+                int leftCount = left.getAvailableParkingPosition();
+                int rightCount = right.getAvailableParkingPosition();
+                return Integer.compare(leftCount, rightCount);
+            });
     }
 
     @Override
