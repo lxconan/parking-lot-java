@@ -112,4 +112,15 @@ class ParkingBoyFacts {
             parkingBoy.getLastErrorMessage()
         );
     }
+
+    @Test
+    void should_not_park_cars_to_parking_lot_if_there_is_not_enough_position() {
+        final int capacity = 1;
+        ParkingLot parkingLot = new ParkingLot(capacity);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+        parkingBoy.park(new Car());
+
+        assertNull(parkingBoy.park(new Car()));
+    }
 }
