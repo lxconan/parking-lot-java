@@ -13,6 +13,13 @@ public class ParkingLot {
     }
 
     public Car fetch(ParkingTicket ticket) {
-        return cars.get(ticket);
+        if (!cars.containsKey(ticket)) {
+            return null;
+        }
+
+        Car car = cars.get(ticket);
+        cars.remove(ticket);
+        return car;
+
     }
 }
