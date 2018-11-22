@@ -19,15 +19,15 @@ class ParkingResult {
         this.message = message;
     }
 
-    public boolean isSuccess() {
+    boolean isSuccess() {
         return success;
     }
 
-    public ParkingTicket getTicket() {
+    ParkingTicket getTicket() {
         return ticket;
     }
 
-    public String getMessage() {
+    String getMessage() {
         return message;
     }
 }

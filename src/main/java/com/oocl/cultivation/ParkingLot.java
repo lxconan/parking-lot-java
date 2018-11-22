@@ -15,7 +15,7 @@ public class ParkingLot {
         this.capacity = capacity;
     }
 
-    public ParkingResult park(Car car) {
+    ParkingResult park(Car car) {
         if (getAvailableParkingPosition() == 0) {
             return new ParkingResult("The parking lot is full.");
         }
@@ -25,7 +25,7 @@ public class ParkingLot {
         return new ParkingResult(ticket);
     }
 
-    public FetchingResult fetch(ParkingTicket ticket) {
+    FetchingResult fetch(ParkingTicket ticket) {
         if (ticket == null) {
             return new FetchingResult("Please provide your parking ticket.");
         }
@@ -44,6 +44,7 @@ public class ParkingLot {
         return capacity - cars.size();
     }
 
+    @SuppressWarnings("WeakerAccess")
     public int getCapacity() {
         return capacity;
     }

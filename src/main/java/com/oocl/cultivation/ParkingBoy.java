@@ -7,7 +7,12 @@ import java.util.Optional;
 
 class ParkingBoy implements ParkingAssistant {
     private final List<ParkingLot> parkingLots = new ArrayList<>();
+    private final ParkingCandidateStrategy parkingCandidateStrategy;
     private String lastErrorMessage;
+
+    ParkingBoy(ParkingCandidateStrategy parkingCandidateStrategy) {
+        this.parkingCandidateStrategy = parkingCandidateStrategy;
+    }
 
     @Override
     public void addParkingLot(ParkingLot... parkingLots) {
@@ -27,18 +32,12 @@ class ParkingBoy implements ParkingAssistant {
     }
 
     private ParkingResult tryPark(Car car) {
-        Optional<ParkingLot> parkingLot = findParkingCandidate();
+        Optional<ParkingLot> parkingLot = parkingCandidateStrategy.findParkingCandidate(parkingLots);
         if (!parkingLot.isPresent()) {
             return new ParkingResult("The parking lot is full.");
         }
 
         return parkingLot.get().park(car);
-    }
-
-    private Optional<ParkingLot> findParkingCandidate() {
-        return parkingLots.stream()
-            .filter(p -> p.getAvailableParkingPosition() > 0)
-            .findFirst();
     }
 
     @Override

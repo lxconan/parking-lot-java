@@ -7,9 +7,9 @@ public class ParkingAssistantFactory {
 
     public static ParkingAssistant create(int type) {
         switch (type) {
-            case PARKING_BOY: return new ParkingBoy();
-            case SMART_PARKING_BOY: return new SmartParkingBoy();
-            case SUPER_SMART_PARKING_BOY: return new SuperSmartParkingBoy();
+            case PARKING_BOY: return new ParkingBoy(new SequentialParkingStrategy());
+            case SMART_PARKING_BOY: return new ParkingBoy(new AvailablePositionParkingStrategy());
+            case SUPER_SMART_PARKING_BOY: return new ParkingBoy(new AvailableRateParkingStrategy());
             default:
                 throw new IllegalArgumentException(String.format("Unknown type: %d", type));
         }

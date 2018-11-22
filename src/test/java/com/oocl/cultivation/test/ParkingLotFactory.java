@@ -1,14 +1,19 @@
-package com.oocl.cultivation;
+package com.oocl.cultivation.test;
+
+import com.oocl.cultivation.Car;
+import com.oocl.cultivation.ParkingAssistant;
+import com.oocl.cultivation.ParkingAssistantFactory;
+import com.oocl.cultivation.ParkingLot;
 
 import java.util.stream.IntStream;
 
 class ParkingLotFactory {
     @SuppressWarnings("SameParameterValue")
-    public static ParkingLot createFullParkingLot(int capacity) {
+    static ParkingLot createFullParkingLot(int capacity) {
         return createParkingLot(capacity, capacity);
     }
 
-    public static ParkingLot createParkingLot(int capacity, int parked) {
+    static ParkingLot createParkingLot(int capacity, int parked) {
         if (capacity < parked) {
             throw new IllegalArgumentException("The parked number should be smaller than or equal to capacity.");
         }

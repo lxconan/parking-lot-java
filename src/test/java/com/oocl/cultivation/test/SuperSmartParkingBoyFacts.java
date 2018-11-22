@@ -1,8 +1,12 @@
-package com.oocl.cultivation;
+package com.oocl.cultivation.test;
 
+import com.oocl.cultivation.Car;
+import com.oocl.cultivation.ParkingAssistant;
+import com.oocl.cultivation.ParkingAssistantFactory;
+import com.oocl.cultivation.ParkingLot;
 import org.junit.jupiter.api.Test;
 
-import static com.oocl.cultivation.ParkingLotFactory.createParkingLot;
+import static com.oocl.cultivation.test.ParkingLotFactory.createParkingLot;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SuperSmartParkingBoyFacts {

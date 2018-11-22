@@ -19,15 +19,15 @@ class FetchingResult {
         this.message = message;
     }
 
-    public boolean isSuccess() {
+    boolean isSuccess() {
         return success;
     }
 
-    public Car getCar() {
+    Car getCar() {
         return car;
     }
 
-    public String getMessage() {
+    String getMessage() {
         return message;
     }
 }

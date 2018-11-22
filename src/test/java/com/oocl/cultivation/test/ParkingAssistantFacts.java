@@ -1,12 +1,12 @@
-package com.oocl.cultivation;
+package com.oocl.cultivation.test;
 
+import com.oocl.cultivation.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static com.oocl.cultivation.ParkingLotFactory.createFullParkingLot;
+import static com.oocl.cultivation.test.ParkingLotFactory.createFullParkingLot;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingAssistantFacts {
