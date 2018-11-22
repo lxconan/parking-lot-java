@@ -135,9 +135,4 @@ class ParkingBoyFacts {
 
         assertEquals("The parking lot is full.", parkingBoy.getLastErrorMessage());
     }
-
-    @Test
-    void should_park_into_first_parking_lot_first() {
-        
-    }
 }

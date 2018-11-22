@@ -15,29 +15,30 @@ public class ParkingLot {
         this.capacity = capacity;
     }
 
-    public ParkingTicket park(Car car) {
+    public ParkingResult park1(Car car) {
         if (getAvailableParkingPosition() == 0) {
-            throw new ParkingException("The parking lot is full.");
+            return new ParkingResult("The parking lot is full.");
         }
 
         ParkingTicket ticket = new ParkingTicket();
         cars.put(ticket, car);
-        return ticket;
+        return new ParkingResult(ticket);
     }
 
-    public Car fetch(ParkingTicket ticket) {
+    public FetchingResult fetch(ParkingTicket ticket) {
         if (ticket == null) {
-            throw new ParkingException("Please provide your parking ticket.");
+            return new FetchingResult("Please provide your parking ticket.");
         }
 
         if (!cars.containsKey(ticket)) {
-            throw new ParkingException("Unrecognized parking ticket.");
+            return new FetchingResult("Unrecognized parking ticket.");
         }
 
         Car car = cars.get(ticket);
         cars.remove(ticket);
-        return car;
+        return new FetchingResult(car);
     }
+
 
     public int getAvailableParkingPosition() {
         return cars.size() - capacity;

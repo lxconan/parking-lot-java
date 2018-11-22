@@ -5,28 +5,26 @@ public class ParkingBoy {
     private final ParkingLot parkingLot;
     private String lastErrorMessage;
 
-    private void setLastError(Throwable error) {
-        lastErrorMessage = error.getMessage();
-    }
-
     public ParkingBoy(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
     }
 
     public ParkingTicket park(Car car) {
-        try {
-            return parkingLot.park(car);
-        } catch (ParkingException error) {
-            setLastError(error);
+        ParkingResult parkingResult = parkingLot.park1(car);
+        if (parkingResult.isSuccess()) {
+            return parkingResult.getTicket();
+        } else {
+            lastErrorMessage = parkingResult.getMessage();
             return null;
         }
     }
 
     public Car fetch(ParkingTicket ticket) {
-        try {
-            return parkingLot.fetch(ticket);
-        } catch (ParkingException error) {
-            setLastError(error);
+        FetchingResult fetchingResult = parkingLot.fetch(ticket);
+        if (fetchingResult.isSuccess()) {
+            return fetchingResult.getCar();
+        } else {
+            lastErrorMessage = fetchingResult.getMessage();
             return null;
         }
     }
