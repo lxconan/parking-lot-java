@@ -2,11 +2,10 @@ package com.oocl.cultivation;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingBoyFacts {
+
     @Test
     void should_park_a_car_to_a_parking_lot_and_get_it_back() {
         ParkingLot parkingLot = new ParkingLot();
