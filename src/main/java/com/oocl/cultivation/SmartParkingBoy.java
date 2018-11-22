@@ -3,8 +3,9 @@ package com.oocl.cultivation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-class ParkingBoy implements ParkingAssistant {
+public class SmartParkingBoy implements ParkingAssistant {
     private final List<ParkingLot> parkingLots = new ArrayList<>();
     private String lastErrorMessage;
 
@@ -26,13 +27,15 @@ class ParkingBoy implements ParkingAssistant {
     }
 
     private ParkingResult tryPark(Car car) {
-        ParkingResult lastResult = null;
-        for (ParkingLot parkingLot : parkingLots) {
-            lastResult = parkingLot.park(car);
-            if (lastResult.isSuccess()) break;
-        }
+        Optional<ParkingLot> max = parkingLots.stream().max((left, right) -> {
+            int leftCount = left.getAvailableParkingPosition();
+            int rightCount = right.getAvailableParkingPosition();
+            return Integer.compare(leftCount, rightCount);
+        });
 
-        return lastResult;
+        ParkingLot parkingLot = max.orElseThrow(
+            () -> new RuntimeException("No max parking lot found"));
+        return parkingLot.park(car);
     }
 
     @Override

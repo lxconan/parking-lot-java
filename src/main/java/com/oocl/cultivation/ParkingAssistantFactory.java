@@ -1,0 +1,15 @@
+package com.oocl.cultivation;
+
+public class ParkingAssistantFactory {
+    public static final int PARKING_BOY = 1;
+    public static final int SMART_PARKING_BOY = 2;
+
+    public static ParkingAssistant create(int type) {
+        switch (type) {
+            case PARKING_BOY: return new ParkingBoy();
+            case SMART_PARKING_BOY: return new SmartParkingBoy();
+            default:
+                throw new IllegalArgumentException(String.format("Unknown type: %d", type));
+        }
+    }
+}

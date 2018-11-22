@@ -1,16 +1,19 @@
 package com.oocl.cultivation;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingAssistantFacts {
     private static Stream<ParkingAssistant> createParkingAssistant() {
-        return Stream.of(new ParkingBoy());
+        return Stream.of(
+            ParkingAssistantFactory.create(ParkingAssistantFactory.PARKING_BOY),
+            ParkingAssistantFactory.create(ParkingAssistantFactory.SMART_PARKING_BOY)
+        );
     }
 
     @ParameterizedTest
@@ -164,5 +167,27 @@ class ParkingAssistantFacts {
 
         assertNull(parkingBoy.park(new Car()));
         assertEquals("The parking lot is full.", parkingBoy.getLastErrorMessage());
+    }
+
+    @ParameterizedTest
+    @MethodSource("createParkingAssistant")
+    void should_parking_in_the_second_parking_lot_if_the_first_is_full(ParkingAssistant parkingAssistant) {
+        ParkingLot firstFullParkingLot = createFullParkingLot(2);
+        ParkingLot secondParkingLot = new ParkingLot(3);
+        parkingAssistant.addParkingLot(firstFullParkingLot, secondParkingLot);
+
+        parkingAssistant.park(new Car());
+
+        assertEquals(0, firstFullParkingLot.getAvailableParkingPosition());
+        assertEquals(2, secondParkingLot.getAvailableParkingPosition());
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private static ParkingLot createFullParkingLot(int capacity) {
+        ParkingLot parkingLot = new ParkingLot(capacity);
+        ParkingAssistant parkingAssistant = ParkingAssistantFactory.create(ParkingAssistantFactory.PARKING_BOY);
+        parkingAssistant.addParkingLot(parkingLot);
+        IntStream.range(0, capacity).forEach(index -> parkingAssistant.park(new Car()));
+        return parkingLot;
     }
 }
