@@ -3,9 +3,9 @@ package com.oocl.cultivation;
 public class ParkingBoy {
 
     private final ParkingLot parkingLot;
+    private String lastErrorMessage;
 
     public ParkingBoy(ParkingLot parkingLot) {
-
         this.parkingLot = parkingLot;
     }
 
@@ -15,6 +15,15 @@ public class ParkingBoy {
     }
 
     public Car fetch(ParkingTicket ticket) {
-        return parkingLot.fetch(ticket);
+        try {
+            return parkingLot.fetch(ticket);
+        } catch (ParkingException error) {
+            lastErrorMessage = error.getMessage();
+            return null;
+        }
+    }
+
+    public String getLastErrorMessage() {
+        return lastErrorMessage;
     }
 }

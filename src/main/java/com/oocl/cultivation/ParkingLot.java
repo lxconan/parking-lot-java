@@ -13,13 +13,16 @@ public class ParkingLot {
     }
 
     public Car fetch(ParkingTicket ticket) {
+        if (ticket == null) {
+            throw new ParkingException("Please provide your parking ticket.");
+        }
+
         if (!cars.containsKey(ticket)) {
-            return null;
+            throw new ParkingException("Unrecognized parking ticket.");
         }
 
         Car car = cars.get(ticket);
         cars.remove(ticket);
         return car;
-
     }
 }
