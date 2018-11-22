@@ -1,16 +1,18 @@
 package com.oocl.cultivation;
 
-public class ParkingBoy {
+import java.util.Arrays;
+import java.util.List;
 
-    private final ParkingLot parkingLot;
+public class ParkingBoy {
+    private final List<ParkingLot> parkingLots;
     private String lastErrorMessage;
 
-    public ParkingBoy(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
+    public ParkingBoy(ParkingLot... parkingLots) {
+        this.parkingLots = Arrays.asList(parkingLots);
     }
 
     public ParkingTicket park(Car car) {
-        ParkingResult parkingResult = parkingLot.park1(car);
+        ParkingResult parkingResult = tryPark(car);
         if (parkingResult.isSuccess()) {
             return parkingResult.getTicket();
         } else {
@@ -19,14 +21,36 @@ public class ParkingBoy {
         }
     }
 
+    private ParkingResult tryPark(Car car) {
+        ParkingResult lastResult = null;
+        for (ParkingLot parkingLot : parkingLots) {
+            lastResult = parkingLot.park(car);
+            if (lastResult.isSuccess()) break;
+        }
+
+        return lastResult;
+    }
+
     public Car fetch(ParkingTicket ticket) {
-        FetchingResult fetchingResult = parkingLot.fetch(ticket);
+        FetchingResult fetchingResult = tryFetch(ticket);
         if (fetchingResult.isSuccess()) {
             return fetchingResult.getCar();
         } else {
             lastErrorMessage = fetchingResult.getMessage();
             return null;
         }
+    }
+
+    private FetchingResult tryFetch(ParkingTicket ticket) {
+        FetchingResult lastFetchResult = null;
+        for (ParkingLot parkingLot : parkingLots) {
+            lastFetchResult = parkingLot.fetch(ticket);
+            if (lastFetchResult.isSuccess()) {
+                break;
+            }
+        }
+
+        return lastFetchResult;
     }
 
     public String getLastErrorMessage() {

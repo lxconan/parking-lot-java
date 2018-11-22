@@ -15,7 +15,7 @@ public class ParkingLot {
         this.capacity = capacity;
     }
 
-    public ParkingResult park1(Car car) {
+    public ParkingResult park(Car car) {
         if (getAvailableParkingPosition() == 0) {
             return new ParkingResult("The parking lot is full.");
         }
@@ -41,6 +41,6 @@ public class ParkingLot {
 
 
     public int getAvailableParkingPosition() {
-        return cars.size() - capacity;
+        return capacity - cars.size();
     }
 }

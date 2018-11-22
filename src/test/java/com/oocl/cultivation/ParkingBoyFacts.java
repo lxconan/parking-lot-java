@@ -135,4 +135,42 @@ class ParkingBoyFacts {
 
         assertEquals("The parking lot is full.", parkingBoy.getLastErrorMessage());
     }
+
+    @Test
+    void should_parking_in_the_first_parking_lot() {
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+        ParkingBoy parkingBoy = new ParkingBoy(firstParkingLot, secondParkingLot);
+
+        parkingBoy.park(new Car());
+
+        assertEquals(0, firstParkingLot.getAvailableParkingPosition());
+        assertEquals(1, secondParkingLot.getAvailableParkingPosition());
+    }
+
+    @Test
+    void should_parking_in_the_second_parking_lot_if_the_first_is_full() {
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+        ParkingBoy parkingBoy = new ParkingBoy(firstParkingLot, secondParkingLot);
+
+        parkingBoy.park(new Car());
+        parkingBoy.park(new Car());
+
+        assertEquals(0, firstParkingLot.getAvailableParkingPosition());
+        assertEquals(0, secondParkingLot.getAvailableParkingPosition());
+    }
+
+    @Test
+    void should_not_park_when_all_parking_lots_are_full() {
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+        ParkingBoy parkingBoy = new ParkingBoy(firstParkingLot, secondParkingLot);
+
+        parkingBoy.park(new Car());
+        parkingBoy.park(new Car());
+
+        assertNull(parkingBoy.park(new Car()));
+        assertEquals("The parking lot is full.", parkingBoy.getLastErrorMessage());
+    }
 }
