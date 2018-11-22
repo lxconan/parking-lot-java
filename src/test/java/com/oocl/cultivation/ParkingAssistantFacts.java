@@ -6,13 +6,15 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static com.oocl.cultivation.ParkingLotFactory.createFullParkingLot;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingAssistantFacts {
     private static Stream<ParkingAssistant> createParkingAssistant() {
         return Stream.of(
             ParkingAssistantFactory.create(ParkingAssistantFactory.PARKING_BOY),
-            ParkingAssistantFactory.create(ParkingAssistantFactory.SMART_PARKING_BOY)
+            ParkingAssistantFactory.create(ParkingAssistantFactory.SMART_PARKING_BOY),
+            ParkingAssistantFactory.create(ParkingAssistantFactory.SUPER_SMART_PARKING_BOY)
         );
     }
 
@@ -180,14 +182,5 @@ class ParkingAssistantFacts {
 
         assertEquals(0, firstFullParkingLot.getAvailableParkingPosition());
         assertEquals(2, secondParkingLot.getAvailableParkingPosition());
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private static ParkingLot createFullParkingLot(int capacity) {
-        ParkingLot parkingLot = new ParkingLot(capacity);
-        ParkingAssistant parkingAssistant = ParkingAssistantFactory.create(ParkingAssistantFactory.PARKING_BOY);
-        parkingAssistant.addParkingLot(parkingLot);
-        IntStream.range(0, capacity).forEach(index -> parkingAssistant.park(new Car()));
-        return parkingLot;
     }
 }

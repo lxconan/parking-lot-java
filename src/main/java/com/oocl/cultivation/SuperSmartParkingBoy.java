@@ -1,11 +1,8 @@
 package com.oocl.cultivation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-public class SmartParkingBoy implements ParkingAssistant {
+public class SuperSmartParkingBoy implements ParkingAssistant {
     private final List<ParkingLot> parkingLots = new ArrayList<>();
     private String lastErrorMessage;
 
@@ -28,13 +25,13 @@ public class SmartParkingBoy implements ParkingAssistant {
 
     private ParkingResult tryPark(Car car) {
         Optional<ParkingLot> max = parkingLots.stream().max((left, right) -> {
-            int leftCount = left.getAvailableParkingPosition();
-            int rightCount = right.getAvailableParkingPosition();
-            return Integer.compare(leftCount, rightCount);
+            double leftEmptyRate = (double) left.getAvailableParkingPosition() / left.getCapacity();
+            double rightEmptyRate = (double) right.getAvailableParkingPosition() / right.getCapacity();
+            return Double.compare(leftEmptyRate, rightEmptyRate);
         });
-
         ParkingLot parkingLot = max.orElseThrow(
-            () -> new RuntimeException("Cannot find parking lot with largest empty positions count."));
+            () -> new RuntimeException("Cannot find parking lot with largest empty rate."));
+
         return parkingLot.park(car);
     }
 
