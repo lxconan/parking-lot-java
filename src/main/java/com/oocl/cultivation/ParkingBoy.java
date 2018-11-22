@@ -54,15 +54,19 @@ class ParkingBoy implements ParkingAssistant {
     }
 
     private FetchingResult tryFetch(ParkingTicket ticket) {
-        FetchingResult lastFetchResult = null;
-        for (ParkingLot parkingLot : parkingLots) {
-            lastFetchResult = parkingLot.fetch(ticket);
-            if (lastFetchResult.isSuccess()) {
-                break;
-            }
+        if (ticket == null) {
+            return new FetchingResult("Please provide your parking ticket.");
         }
 
-        return lastFetchResult;
+        Optional<ParkingLot> fetchCandidate = parkingLots.stream()
+            .filter(p -> p.containsTicket(ticket))
+            .findFirst();
+
+        if (!fetchCandidate.isPresent()) {
+            return new FetchingResult("Unrecognized parking ticket.");
+        }
+
+        return fetchCandidate.get().fetch(ticket);
     }
 
     @Override

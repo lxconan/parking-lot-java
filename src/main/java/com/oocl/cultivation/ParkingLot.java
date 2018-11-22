@@ -16,29 +16,20 @@ public class ParkingLot {
     }
 
     ParkingResult park(Car car) {
-        if (getAvailableParkingPosition() == 0) {
-            return new ParkingResult("The parking lot is full.");
-        }
-
         ParkingTicket ticket = new ParkingTicket();
         cars.put(ticket, car);
         return new ParkingResult(ticket);
     }
 
     FetchingResult fetch(ParkingTicket ticket) {
-        if (ticket == null) {
-            return new FetchingResult("Please provide your parking ticket.");
-        }
-
-        if (!cars.containsKey(ticket)) {
-            return new FetchingResult("Unrecognized parking ticket.");
-        }
-
         Car car = cars.get(ticket);
         cars.remove(ticket);
         return new FetchingResult(car);
     }
 
+    boolean containsTicket(ParkingTicket ticket) {
+        return cars.containsKey(ticket);
+    }
 
     public int getAvailableParkingPosition() {
         return capacity - cars.size();

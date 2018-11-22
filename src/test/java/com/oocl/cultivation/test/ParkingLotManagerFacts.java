@@ -25,4 +25,11 @@ class ParkingLotManagerFacts {
 
         assertEquals(car, fetched);
     }
+
+    // TODO: more test cases
+    // * should_fail_to_fetch_if_replace_assistant
+    // * should_fail_to_fetch_if_assistant_name_does_not_exist
+    // * should_show_message_if_assistant_name_does_not_exist
+    // * should_show_message_if_assistant_fetch_car_failed
+    // * should_show_message_if_assistant_park_car_failed
 }
