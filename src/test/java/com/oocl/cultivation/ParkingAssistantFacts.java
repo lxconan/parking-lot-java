@@ -9,13 +9,13 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingAssistantFacts {
-    private static Stream<ParkingBoy> createParkingAssistant() {
+    private static Stream<ParkingAssistant> createParkingAssistant() {
         return Stream.of(new ParkingBoy());
     }
 
     @ParameterizedTest
     @MethodSource("createParkingAssistant")
-    void should_park_a_car_to_a_parking_lot_and_get_it_back(ParkingBoy parkingBoy) {
+    void should_park_a_car_to_a_parking_lot_and_get_it_back(ParkingAssistant parkingBoy) {
         ParkingLot parkingLot = new ParkingLot();
         parkingBoy.addParkingLot(parkingLot);
         Car car = new Car();
@@ -28,7 +28,7 @@ class ParkingAssistantFacts {
 
     @ParameterizedTest
     @MethodSource("createParkingAssistant")
-    void should_park_multiple_cars_to_a_parking_lot_and_get_them_back(ParkingBoy parkingBoy) {
+    void should_park_multiple_cars_to_a_parking_lot_and_get_them_back(ParkingAssistant parkingBoy) {
         ParkingLot parkingLot = new ParkingLot();
         parkingBoy.addParkingLot(parkingLot);
         Car firstCar = new Car();
@@ -46,7 +46,7 @@ class ParkingAssistantFacts {
 
     @ParameterizedTest
     @MethodSource("createParkingAssistant")
-    void should_not_fetch_any_car_once_ticket_is_wrong(ParkingBoy parkingBoy) {
+    void should_not_fetch_any_car_once_ticket_is_wrong(ParkingAssistant parkingBoy) {
         ParkingLot parkingLot = new ParkingLot();
         parkingBoy.addParkingLot(parkingLot);
         Car car = new Car();
@@ -60,7 +60,7 @@ class ParkingAssistantFacts {
 
     @ParameterizedTest
     @MethodSource("createParkingAssistant")
-    void should_query_message_once_the_ticket_is_wrong(ParkingBoy parkingBoy) {
+    void should_query_message_once_the_ticket_is_wrong(ParkingAssistant parkingBoy) {
         ParkingLot parkingLot = new ParkingLot();
         parkingBoy.addParkingLot(parkingLot);
         ParkingTicket wrongTicket = new ParkingTicket();
@@ -73,7 +73,7 @@ class ParkingAssistantFacts {
 
     @ParameterizedTest
     @MethodSource("createParkingAssistant")
-    void should_not_fetch_any_car_once_ticket_is_not_provided(ParkingBoy parkingBoy) {
+    void should_not_fetch_any_car_once_ticket_is_not_provided(ParkingAssistant parkingBoy) {
         ParkingLot parkingLot = new ParkingLot();
         parkingBoy.addParkingLot(parkingLot);
         Car car = new Car();
@@ -86,7 +86,7 @@ class ParkingAssistantFacts {
 
     @ParameterizedTest
     @MethodSource("createParkingAssistant")
-    void should_query_message_once_ticket_is_not_provided(ParkingBoy parkingBoy) {
+    void should_query_message_once_ticket_is_not_provided(ParkingAssistant parkingBoy) {
         ParkingLot parkingLot = new ParkingLot();
         parkingBoy.addParkingLot(parkingLot);
 
@@ -99,7 +99,7 @@ class ParkingAssistantFacts {
 
     @ParameterizedTest
     @MethodSource("createParkingAssistant")
-    void should_not_fetch_any_car_once_ticket_has_been_used(ParkingBoy parkingBoy) {
+    void should_not_fetch_any_car_once_ticket_has_been_used(ParkingAssistant parkingBoy) {
         ParkingLot parkingLot = new ParkingLot();
         parkingBoy.addParkingLot(parkingLot);
         Car car = new Car();
@@ -112,7 +112,7 @@ class ParkingAssistantFacts {
 
     @ParameterizedTest
     @MethodSource("createParkingAssistant")
-    void should_query_error_message_for_used_ticket(ParkingBoy parkingBoy) {
+    void should_query_error_message_for_used_ticket(ParkingAssistant parkingBoy) {
         ParkingLot parkingLot = new ParkingLot();
         parkingBoy.addParkingLot(parkingLot);
         Car car = new Car();
@@ -129,7 +129,7 @@ class ParkingAssistantFacts {
 
     @ParameterizedTest
     @MethodSource("createParkingAssistant")
-    void should_not_park_cars_to_parking_lot_if_there_is_not_enough_position(ParkingBoy parkingBoy) {
+    void should_not_park_cars_to_parking_lot_if_there_is_not_enough_position(ParkingAssistant parkingBoy) {
         final int capacity = 1;
         ParkingLot parkingLot = new ParkingLot(capacity);
         parkingBoy.addParkingLot(parkingLot);
@@ -141,7 +141,7 @@ class ParkingAssistantFacts {
 
     @ParameterizedTest
     @MethodSource("createParkingAssistant")
-    void should_get_message_if_there_is_not_enough_position(ParkingBoy parkingBoy) {
+    void should_get_message_if_there_is_not_enough_position(ParkingAssistant parkingBoy) {
         final int capacity = 1;
         ParkingLot parkingLot = new ParkingLot(capacity);
         parkingBoy.addParkingLot(parkingLot);
@@ -154,7 +154,7 @@ class ParkingAssistantFacts {
 
     @ParameterizedTest
     @MethodSource("createParkingAssistant")
-    void should_not_park_when_all_parking_lots_are_full(ParkingBoy parkingBoy) {
+    void should_not_park_when_all_parking_lots_are_full(ParkingAssistant parkingBoy) {
         ParkingLot firstParkingLot = new ParkingLot(1);
         ParkingLot secondParkingLot = new ParkingLot(1);
         parkingBoy.addParkingLot(firstParkingLot, secondParkingLot);

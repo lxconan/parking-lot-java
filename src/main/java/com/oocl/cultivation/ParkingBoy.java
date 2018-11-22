@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ParkingBoy {
+public class ParkingBoy implements ParkingAssistant {
     private final List<ParkingLot> parkingLots = new ArrayList<>();
     private String lastErrorMessage;
 
-    public void addParkingLot(ParkingLot ...parkingLots) {
+    @Override
+    public void addParkingLot(ParkingLot... parkingLots) {
         // TODO: security check.
         this.parkingLots.addAll(Arrays.asList(parkingLots));
     }
 
+    @Override
     public ParkingTicket park(Car car) {
         ParkingResult parkingResult = tryPark(car);
         if (parkingResult.isSuccess()) {
@@ -33,6 +35,7 @@ public class ParkingBoy {
         return lastResult;
     }
 
+    @Override
     public Car fetch(ParkingTicket ticket) {
         FetchingResult fetchingResult = tryFetch(ticket);
         if (fetchingResult.isSuccess()) {
@@ -55,6 +58,7 @@ public class ParkingBoy {
         return lastFetchResult;
     }
 
+    @Override
     public String getLastErrorMessage() {
         return lastErrorMessage;
     }
