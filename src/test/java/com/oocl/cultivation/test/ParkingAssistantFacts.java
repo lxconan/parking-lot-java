@@ -1,6 +1,7 @@
 package com.oocl.cultivation.test;
 
 import com.oocl.cultivation.*;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -30,6 +31,27 @@ class ParkingAssistantFacts {
         Car fetched = parkingBoy.fetch(ticket);
 
         assertSame(fetched, car);
+    }
+
+    @ParameterizedTest
+    @MethodSource("createParkingAssistant")
+    void should_not_display_error_message_if_park_and_fetch_are_succeeded(ParkingAssistant parkingBoy) {
+        ParkingLot parkingLot = new ParkingLot();
+        parkingBoy.addParkingLot(parkingLot);
+        Car car = new Car();
+        ParkingTicket invalidTicket = new ParkingTicket();
+
+        parkingBoy.fetch(invalidTicket);
+        assertNotNull(parkingBoy.getLastErrorMessage());
+
+        ParkingTicket ticket = parkingBoy.park(car);
+        assertNull(parkingBoy.getLastErrorMessage());
+
+        parkingBoy.fetch(invalidTicket);
+        assertNotNull(parkingBoy.getLastErrorMessage());
+
+        Car fetched = parkingBoy.fetch(ticket);
+        assertNull(parkingBoy.getLastErrorMessage());
     }
 
     @ParameterizedTest

@@ -24,6 +24,7 @@ class ParkingBoy implements ParkingAssistant {
     public ParkingTicket park(Car car) {
         ParkingResult parkingResult = tryPark(car);
         if (parkingResult.isSuccess()) {
+            lastErrorMessage = null;
             return parkingResult.getTicket();
         } else {
             lastErrorMessage = parkingResult.getMessage();
@@ -44,6 +45,7 @@ class ParkingBoy implements ParkingAssistant {
     public Car fetch(ParkingTicket ticket) {
         FetchingResult fetchingResult = tryFetch(ticket);
         if (fetchingResult.isSuccess()) {
+            lastErrorMessage = null;
             return fetchingResult.getCar();
         } else {
             lastErrorMessage = fetchingResult.getMessage();
