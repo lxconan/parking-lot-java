@@ -14,7 +14,8 @@ class ParkingAssistantFacts {
         return Stream.of(
             ParkingAssistantFactory.create(ParkingAssistantFactory.PARKING_BOY),
             ParkingAssistantFactory.create(ParkingAssistantFactory.SMART_PARKING_BOY),
-            ParkingAssistantFactory.create(ParkingAssistantFactory.SUPER_SMART_PARKING_BOY)
+            ParkingAssistantFactory.create(ParkingAssistantFactory.SUPER_SMART_PARKING_BOY),
+            new ParkingLotManagerProxy(new ParkingLotManager())
         );
     }
 
