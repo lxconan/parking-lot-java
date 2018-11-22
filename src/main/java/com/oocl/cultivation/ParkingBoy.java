@@ -1,14 +1,16 @@
 package com.oocl.cultivation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ParkingBoy {
-    private final List<ParkingLot> parkingLots;
+    private final List<ParkingLot> parkingLots = new ArrayList<>();
     private String lastErrorMessage;
 
-    public ParkingBoy(ParkingLot... parkingLots) {
-        this.parkingLots = Arrays.asList(parkingLots);
+    public void addParkingLot(ParkingLot ...parkingLots) {
+        // TODO: security check.
+        this.parkingLots.addAll(Arrays.asList(parkingLots));
     }
 
     public ParkingTicket park(Car car) {
