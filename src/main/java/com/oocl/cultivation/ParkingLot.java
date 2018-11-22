@@ -16,7 +16,7 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) {
-        if (cars.size() == capacity) {
+        if (getAvailableParkingPosition() == 0) {
             throw new ParkingException("The parking lot is full.");
         }
 
@@ -37,5 +37,9 @@ public class ParkingLot {
         Car car = cars.get(ticket);
         cars.remove(ticket);
         return car;
+    }
+
+    public int getAvailableParkingPosition() {
+        return cars.size() - capacity;
     }
 }

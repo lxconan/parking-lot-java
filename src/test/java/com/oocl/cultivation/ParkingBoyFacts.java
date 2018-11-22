@@ -123,4 +123,21 @@ class ParkingBoyFacts {
 
         assertNull(parkingBoy.park(new Car()));
     }
+
+    @Test
+    void should_get_message_if_there_is_not_enough_position() {
+        final int capacity = 1;
+        ParkingLot parkingLot = new ParkingLot(capacity);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+        parkingBoy.park(new Car());
+        parkingBoy.park(new Car());
+
+        assertEquals("The parking lot is full.", parkingBoy.getLastErrorMessage());
+    }
+
+    @Test
+    void should_park_into_first_parking_lot_first() {
+        
+    }
 }
