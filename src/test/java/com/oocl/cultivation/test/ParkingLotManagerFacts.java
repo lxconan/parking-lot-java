@@ -4,6 +4,7 @@ import com.oocl.cultivation.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ParkingLotManagerFacts {
     @Test
@@ -21,6 +22,24 @@ class ParkingLotManagerFacts {
 
         Car fetched = manager.fetch(ticket, "parkingBoy-1");
         assertEquals(car, fetched);
+    }
+
+    @Test
+    void should_not_fetch_cars_from_parking_boy_who_did_not_manage_the_parking_lot() {
+        ParkingBoy parkingBoyWithoutCar = ParkingBoyFactory.create(
+            ParkingBoyFactory.PARKING_BOY,
+            ParkingLotFactory.createEmptyParkingLot());
+        ParkingBoy parkingBoyWithCar = ParkingBoyFactory.create(
+            ParkingBoyFactory.PARKING_BOY,
+            ParkingLotFactory.createEmptyParkingLot());
+        ParkingLotManager manager = new ParkingLotManager();
+        manager.addParkingBoy("parking-boy-without-car", parkingBoyWithoutCar);
+        manager.addParkingBoy("parking-boy-with-car", parkingBoyWithCar);
+        ParkingTicket ticket = manager.park(new Car(), "parking-boy-with-car");
+
+        Car fetched = manager.fetch(ticket, "parking-boy-without-car");
+
+        assertNull(fetched);
     }
 
     // TODO: more test cases
