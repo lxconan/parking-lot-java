@@ -59,6 +59,23 @@ class ParkingLotManagerFacts {
     }
 
     @Test
+    void should_display_error_message_if_manager_initiated_parking_job_for_parking_boy_failed() {
+        int notImportantAtAll = 2;
+
+        ParkingLotManager manager = new ParkingLotManager();
+        manager.addParkingBoy(
+            "parking-boy",
+            ParkingBoyFactory.create(ParkingBoyFactory.PARKING_BOY,
+                ParkingLotFactory.createFullParkingLot(notImportantAtAll))
+        );
+
+        manager.park(new Car(), "parking-boy");
+
+        String message = manager.getLastErrorMessage();
+        assertEquals("The parking lot is full.", message);
+    }
+
+    @Test
     void should_not_park_car_if_parking_boys_does_not_exist() {
         ParkingLotManager manager = new ParkingLotManager();
 

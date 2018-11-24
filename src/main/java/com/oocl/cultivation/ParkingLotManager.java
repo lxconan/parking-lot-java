@@ -41,7 +41,9 @@ public class ParkingLotManager {
             return null;
         }
 
-        return parkingBoy.park(car);
+        ParkingTicket ticket = parkingBoy.park(car);
+        lastErrorMessage = parkingBoy.getLastErrorMessage();
+        return ticket;
     }
 
     public Car fetch(ParkingTicket ticket, String parkingBoyId) {
