@@ -6,7 +6,7 @@ public class ParkingBoyFactory {
     public static final int SUPER_SMART_PARKING_BOY = 3;
 
     public static ParkingBoy create(int type, ParkingLot... parkingLots) {
-        ParkingBoy parkingBoy = null;
+        ParkingBoy parkingBoy;
         switch (type) {
             case PARKING_BOY:
                 parkingBoy = new ParkingBoyImpl(new SequentialParkingStrategy());

@@ -52,7 +52,7 @@ class ParkingLotManagerFacts {
                 ParkingLotFactory.createEmptyParkingLot())
         );
 
-        Car fetch = manager.fetch(new ParkingTicket(), "parking-boy");
+        manager.fetch(new ParkingTicket(), "parking-boy");
 
         String message = manager.getLastErrorMessage();
         assertEquals("Unrecognized parking ticket.", message);
