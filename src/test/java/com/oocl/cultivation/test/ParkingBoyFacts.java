@@ -12,8 +12,8 @@ class ParkingBoyFacts {
     @ParameterizedTest
     @MethodSource("createParkingBoy")
     void should_parking_in_the_first_parking_lot(ParkingAssistant assistant) {
-        ParkingLot firstParkingLot = new ParkingLot(1);
-        ParkingLot secondParkingLot = new ParkingLot(3);
+        ParkingLot firstParkingLot = ParkingLotFactory.createEmptyParkingLot(1);
+        ParkingLot secondParkingLot = ParkingLotFactory.createEmptyParkingLot(3);
         assistant.addParkingLot(firstParkingLot, secondParkingLot);
 
         assistant.park(new Car());

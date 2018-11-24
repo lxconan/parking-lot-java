@@ -13,6 +13,15 @@ class ParkingLotFactory {
         return createParkingLot(capacity, capacity);
     }
 
+    @SuppressWarnings("SameParameterValue")
+    static ParkingLot createEmptyParkingLot(int capacity) {
+        return new ParkingLot(capacity);
+    }
+
+    static ParkingLot createEmptyParkingLot() {
+        return new ParkingLot();
+    }
+
     static ParkingLot createParkingLot(int capacity, int parked) {
         if (capacity < parked) {
             throw new IllegalArgumentException("The parked number should be smaller than or equal to capacity.");

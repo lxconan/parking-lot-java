@@ -9,8 +9,7 @@ class ParkingLotManagerFacts {
     @Test
     void should_let_parking_boy_to_park_and_fetch_the_car() {
         ParkingAssistant assistant = ParkingAssistantFactory.create(ParkingAssistantFactory.PARKING_BOY);
-        final int capacity = 5;
-        ParkingLot parkingLot = new ParkingLot(capacity);
+        ParkingLot parkingLot = ParkingLotFactory.createEmptyParkingLot();
         assistant.addParkingLot(parkingLot);
 
         ParkingLotManager manager = new ParkingLotManager();
@@ -18,11 +17,9 @@ class ParkingLotManagerFacts {
 
         Car car = new Car();
         ParkingTicket ticket = manager.park(car, "assistant-1");
-
-        assertEquals(capacity - 1, parkingLot.getAvailableParkingPosition());
+        assertEquals(parkingLot.getCapacity() - 1, parkingLot.getAvailableParkingPosition());
 
         Car fetched = manager.fetch(ticket, "assistant-1");
-
         assertEquals(car, fetched);
     }
 
