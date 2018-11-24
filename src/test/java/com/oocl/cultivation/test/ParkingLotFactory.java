@@ -1,8 +1,8 @@
 package com.oocl.cultivation.test;
 
 import com.oocl.cultivation.Car;
-import com.oocl.cultivation.ParkingAssistant;
-import com.oocl.cultivation.ParkingAssistantFactory;
+import com.oocl.cultivation.ParkingBoy;
+import com.oocl.cultivation.ParkingBoyFactory;
 import com.oocl.cultivation.ParkingLot;
 
 import java.util.stream.IntStream;
@@ -28,9 +28,9 @@ class ParkingLotFactory {
         }
 
         ParkingLot parkingLot = new ParkingLot(capacity);
-        ParkingAssistant parkingAssistant = ParkingAssistantFactory.create(ParkingAssistantFactory.PARKING_BOY);
-        parkingAssistant.addParkingLot(parkingLot);
-        IntStream.range(0, parked).forEach(index -> parkingAssistant.park(new Car()));
+        ParkingBoy parkingBoy = ParkingBoyFactory.create(ParkingBoyFactory.PARKING_BOY);
+        parkingBoy.addParkingLot(parkingLot);
+        IntStream.range(0, parked).forEach(index -> parkingBoy.park(new Car()));
         return parkingLot;
     }
 }

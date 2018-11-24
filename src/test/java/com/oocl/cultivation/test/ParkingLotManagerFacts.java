@@ -8,18 +8,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ParkingLotManagerFacts {
     @Test
     void should_let_parking_boy_to_park_and_fetch_the_car() {
-        ParkingAssistant assistant = ParkingAssistantFactory.create(ParkingAssistantFactory.PARKING_BOY);
+        ParkingBoy parkingBoy = ParkingBoyFactory.create(ParkingBoyFactory.PARKING_BOY);
         ParkingLot parkingLot = ParkingLotFactory.createEmptyParkingLot();
-        assistant.addParkingLot(parkingLot);
+        parkingBoy.addParkingLot(parkingLot);
 
         ParkingLotManager manager = new ParkingLotManager();
-        manager.addParkingAssistant("assistant-1", assistant);
+        manager.addParkingBoy("parkingBoy-1", parkingBoy);
 
         Car car = new Car();
-        ParkingTicket ticket = manager.park(car, "assistant-1");
+        ParkingTicket ticket = manager.park(car, "parkingBoy-1");
         assertEquals(parkingLot.getCapacity() - 1, parkingLot.getAvailableParkingPosition());
 
-        Car fetched = manager.fetch(ticket, "assistant-1");
+        Car fetched = manager.fetch(ticket, "parkingBoy-1");
         assertEquals(car, fetched);
     }
 

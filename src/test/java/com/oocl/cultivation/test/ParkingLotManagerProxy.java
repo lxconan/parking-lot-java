@@ -2,7 +2,7 @@ package com.oocl.cultivation.test;
 
 import com.oocl.cultivation.*;
 
-class ParkingLotManagerProxy implements ParkingAssistant {
+class ParkingLotManagerProxy implements ParkingBoy {
     private final ParkingLotManager manager;
 
     public ParkingLotManagerProxy(ParkingLotManager manager) {

@@ -1,8 +1,8 @@
 package com.oocl.cultivation.test;
 
 import com.oocl.cultivation.Car;
-import com.oocl.cultivation.ParkingAssistant;
-import com.oocl.cultivation.ParkingAssistantFactory;
+import com.oocl.cultivation.ParkingBoy;
+import com.oocl.cultivation.ParkingBoyFactory;
 import com.oocl.cultivation.ParkingLot;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ class SuperSmartParkingBoyFacts {
         ParkingLot firstParkingLotWithHalfEmptyRate = createParkingLot(20, 10);
         ParkingLot secondParkingLotWithFullEmptyRate = createParkingLot(4, 0);
         ParkingLot thirdParkingLotWithOneThirdEmptyRate = createParkingLot(60, 40);
-        ParkingAssistant superSmartParkingBoy = createSuperSmartParkingBoy();
+        ParkingBoy superSmartParkingBoy = createSuperSmartParkingBoy();
         superSmartParkingBoy.addParkingLot(
             firstParkingLotWithHalfEmptyRate,
             secondParkingLotWithFullEmptyRate,
@@ -29,7 +29,7 @@ class SuperSmartParkingBoyFacts {
         assertEquals(20, thirdParkingLotWithOneThirdEmptyRate.getAvailableParkingPosition());
     }
 
-    private static ParkingAssistant createSuperSmartParkingBoy() {
-        return ParkingAssistantFactory.create(ParkingAssistantFactory.SUPER_SMART_PARKING_BOY);
+    private static ParkingBoy createSuperSmartParkingBoy() {
+        return ParkingBoyFactory.create(ParkingBoyFactory.SUPER_SMART_PARKING_BOY);
     }
 }

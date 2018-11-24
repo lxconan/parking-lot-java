@@ -1,8 +1,8 @@
 package com.oocl.cultivation.test;
 
 import com.oocl.cultivation.Car;
-import com.oocl.cultivation.ParkingAssistant;
-import com.oocl.cultivation.ParkingAssistantFactory;
+import com.oocl.cultivation.ParkingBoy;
+import com.oocl.cultivation.ParkingBoyFactory;
 import com.oocl.cultivation.ParkingLot;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ class SmartParkingBoyFacts {
         ParkingLot firstParkingLotWith2Positions = ParkingLotFactory.createEmptyParkingLot(2);
         ParkingLot secondParkingLotWith3Positions = ParkingLotFactory.createEmptyParkingLot(3);
         ParkingLot thirdParkingLotWith1Position = ParkingLotFactory.createEmptyParkingLot(1);
-        ParkingAssistant smartParkingBoy = createSmartParkingBoy();
+        ParkingBoy smartParkingBoy = createSmartParkingBoy();
         smartParkingBoy.addParkingLot(
             firstParkingLotWith2Positions, secondParkingLotWith3Positions, thirdParkingLotWith1Position);
 
@@ -31,7 +31,7 @@ class SmartParkingBoyFacts {
             thirdParkingLotWith1Position.getAvailableParkingPosition());
     }
 
-    private static ParkingAssistant createSmartParkingBoy() {
-        return ParkingAssistantFactory.create(ParkingAssistantFactory.SMART_PARKING_BOY);
+    private static ParkingBoy createSmartParkingBoy() {
+        return ParkingBoyFactory.create(ParkingBoyFactory.SMART_PARKING_BOY);
     }
 }

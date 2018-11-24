@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLotManager {
-    private final ParkingAssistant parkingBoy =
-        ParkingAssistantFactory.create(ParkingAssistantFactory.PARKING_BOY);
-    private final Map<String, ParkingAssistant> parkingAssistants =
+    private final ParkingBoy parkingBoy =
+        ParkingBoyFactory.create(ParkingBoyFactory.PARKING_BOY);
+    private final Map<String, ParkingBoy> parkingBoys =
         new HashMap<>();
 
     public void addParkingLot(ParkingLot... parkingLots) {
@@ -25,21 +25,21 @@ public class ParkingLotManager {
         return parkingBoy.getLastErrorMessage();
     }
 
-    public void addParkingAssistant(String name, ParkingAssistant assistant) {
-        parkingAssistants.put(name, assistant);
+    public void addParkingBoy(String name, ParkingBoy parkingBoy) {
+        parkingBoys.put(name, parkingBoy);
     }
 
-    public ParkingTicket park(Car car, String assistantName) {
-        ParkingAssistant assistant = getParkingAssistant(assistantName);
-        return assistant.park(car);
+    public ParkingTicket park(Car car, String parkingBoyId) {
+        ParkingBoy parkingBoy = getParkingBoy(parkingBoyId);
+        return parkingBoy.park(car);
     }
 
-    public Car fetch(ParkingTicket ticket, String assistantName) {
-        ParkingAssistant assistant = getParkingAssistant(assistantName);
-        return assistant.fetch(ticket);
+    public Car fetch(ParkingTicket ticket, String parkingBoyId) {
+        ParkingBoy parkingBoy = getParkingBoy(parkingBoyId);
+        return parkingBoy.fetch(ticket);
     }
 
-    private ParkingAssistant getParkingAssistant(String assistantName) {
-        return parkingAssistants.get(assistantName);
+    private ParkingBoy getParkingBoy(String parkingBoyId) {
+        return parkingBoys.get(parkingBoyId);
     }
 }

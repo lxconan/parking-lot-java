@@ -11,20 +11,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ParkingBoyFacts {
     @ParameterizedTest
     @MethodSource("createParkingBoy")
-    void should_parking_in_the_first_parking_lot(ParkingAssistant assistant) {
+    void should_parking_in_the_first_parking_lot(ParkingBoy parkingBoy) {
         ParkingLot firstParkingLot = ParkingLotFactory.createEmptyParkingLot(1);
         ParkingLot secondParkingLot = ParkingLotFactory.createEmptyParkingLot(3);
-        assistant.addParkingLot(firstParkingLot, secondParkingLot);
+        parkingBoy.addParkingLot(firstParkingLot, secondParkingLot);
 
-        assistant.park(new Car());
+        parkingBoy.park(new Car());
 
         assertEquals(0, firstParkingLot.getAvailableParkingPosition());
         assertEquals(3, secondParkingLot.getAvailableParkingPosition());
     }
 
-    private static Stream<ParkingAssistant> createParkingBoy() {
+    private static Stream<ParkingBoy> createParkingBoy() {
         return Stream.of(
-            ParkingAssistantFactory.create(ParkingAssistantFactory.PARKING_BOY),
+            ParkingBoyFactory.create(ParkingBoyFactory.PARKING_BOY),
             new ParkingLotManagerProxy(new ParkingLotManager())
         );
     }
