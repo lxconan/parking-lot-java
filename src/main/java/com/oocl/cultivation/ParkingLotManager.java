@@ -31,11 +31,18 @@ public class ParkingLotManager {
 
     public ParkingTicket park(Car car, String parkingBoyId) {
         ParkingBoy parkingBoy = getParkingBoy(parkingBoyId);
+        if (parkingBoy == null) {
+            return null;
+        }
+
         return parkingBoy.park(car);
     }
 
     public Car fetch(ParkingTicket ticket, String parkingBoyId) {
         ParkingBoy parkingBoy = getParkingBoy(parkingBoyId);
+        if (parkingBoy == null) {
+            return null;
+        }
         return parkingBoy.fetch(ticket);
     }
 

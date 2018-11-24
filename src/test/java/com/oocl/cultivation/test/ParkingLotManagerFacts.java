@@ -4,6 +4,7 @@ import com.oocl.cultivation.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ParkingLotManagerFacts {
@@ -42,8 +43,30 @@ class ParkingLotManagerFacts {
         assertNull(fetched);
     }
 
+    @Test
+    void should_not_park_car_if_parking_boys_name_does_not_exist() {
+        ParkingLotManager manager = new ParkingLotManager();
+
+        ParkingTicket ticket = manager.park(new Car(), "not-exist");
+
+        assertNull(ticket);
+    }
+
+    @Test
+    void should_not_fetch_car_if_parking_boy_name_does_not_exist() {
+        ParkingLotManager manager = new ParkingLotManager();
+        manager.addParkingBoy(
+            "parking-boy",
+            ParkingBoyFactory.create(ParkingBoyFactory.PARKING_BOY, ParkingLotFactory.createEmptyParkingLot()));
+        ParkingTicket ticket = manager.park(new Car(), "parking-boy");
+        assertNotNull(ticket);
+
+        Car fetched = manager.fetch(ticket, "not-exist");
+
+        assertNull(fetched);
+    }
+
     // TODO: more test cases
-    // * should_fail_to_fetch_if_replace_assistant
     // * should_fail_to_fetch_if_assistant_name_does_not_exist
     // * should_show_message_if_assistant_name_does_not_exist
     // * should_show_message_if_assistant_fetch_car_failed
