@@ -44,7 +44,22 @@ class ParkingLotManagerFacts {
     }
 
     @Test
-    void should_not_park_car_if_parking_boys_name_does_not_exist() {
+    void should_display_error_message_if_manager_initiated_fetch_job_for_parking_boy_failed() {
+        ParkingLotManager manager = new ParkingLotManager();
+        manager.addParkingBoy(
+            "parking-boy",
+            ParkingBoyFactory.create(ParkingBoyFactory.PARKING_BOY,
+                ParkingLotFactory.createEmptyParkingLot())
+        );
+
+        Car fetch = manager.fetch(new ParkingTicket(), "parking-boy");
+
+        String message = manager.getLastErrorMessage();
+        assertEquals("Unrecognized parking ticket.", message);
+    }
+
+    @Test
+    void should_not_park_car_if_parking_boys_does_not_exist() {
         ParkingLotManager manager = new ParkingLotManager();
 
         ParkingTicket ticket = manager.park(new Car(), "not-exist");
@@ -65,10 +80,4 @@ class ParkingLotManagerFacts {
 
         assertNull(fetched);
     }
-
-    // TODO: more test cases
-    // * should_fail_to_fetch_if_assistant_name_does_not_exist
-    // * should_show_message_if_assistant_name_does_not_exist
-    // * should_show_message_if_assistant_fetch_car_failed
-    // * should_show_message_if_assistant_park_car_failed
 }

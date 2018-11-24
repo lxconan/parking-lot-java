@@ -8,21 +8,26 @@ public class ParkingLotManager {
         ParkingBoyFactory.create(ParkingBoyFactory.PARKING_BOY);
     private final Map<String, ParkingBoy> parkingBoys =
         new HashMap<>();
+    private String lastErrorMessage = null;
 
     public void addParkingLot(ParkingLot... parkingLots) {
         parkingBoy.addParkingLot(parkingLots);
     }
 
     public ParkingTicket park(Car car) {
-        return parkingBoy.park(car);
+        ParkingTicket ticket = parkingBoy.park(car);
+        lastErrorMessage = parkingBoy.getLastErrorMessage();
+        return ticket;
     }
 
     public Car fetch(ParkingTicket ticket) {
-        return parkingBoy.fetch(ticket);
+        Car fetched = parkingBoy.fetch(ticket);
+        lastErrorMessage = parkingBoy.getLastErrorMessage();
+        return fetched;
     }
 
     public String getLastErrorMessage() {
-        return parkingBoy.getLastErrorMessage();
+        return lastErrorMessage;
     }
 
     public void addParkingBoy(String name, ParkingBoy parkingBoy) {
@@ -43,7 +48,9 @@ public class ParkingLotManager {
         if (parkingBoy == null) {
             return null;
         }
-        return parkingBoy.fetch(ticket);
+        Car fetched = parkingBoy.fetch(ticket);
+        lastErrorMessage = parkingBoy.getLastErrorMessage();
+        return fetched;
     }
 
     private ParkingBoy getParkingBoy(String parkingBoyId) {
