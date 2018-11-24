@@ -68,6 +68,16 @@ class ParkingLotManagerFacts {
     }
 
     @Test
+    void should_get_message_if_parking_boy_does_not_exist_when_parking() {
+        ParkingLotManager manager = new ParkingLotManager();
+        manager.park(new Car(), "not-exist");
+
+        String message = manager.getLastErrorMessage();
+
+        assertEquals("Cannot find parking boy: not-exist", message);
+    }
+
+    @Test
     void should_not_fetch_car_if_parking_boy_name_does_not_exist() {
         ParkingLotManager manager = new ParkingLotManager();
         manager.addParkingBoy(
@@ -79,5 +89,19 @@ class ParkingLotManagerFacts {
         Car fetched = manager.fetch(ticket, "not-exist");
 
         assertNull(fetched);
+    }
+
+    @Test
+    void should_get_message_if_parking_boy_does_not_exist_when_fetching() {
+        ParkingLotManager manager = new ParkingLotManager();
+        manager.addParkingBoy(
+            "parking-boy",
+            ParkingBoyFactory.create(ParkingBoyFactory.PARKING_BOY, ParkingLotFactory.createEmptyParkingLot()));
+        ParkingTicket ticket = manager.park(new Car(), "parking-boy");
+        manager.fetch(ticket, "not-exist");
+
+        String message = manager.getLastErrorMessage();
+
+        assertEquals("Cannot find parking boy: not-exist", message);
     }
 }

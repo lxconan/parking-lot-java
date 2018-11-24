@@ -37,6 +37,7 @@ public class ParkingLotManager {
     public ParkingTicket park(Car car, String parkingBoyId) {
         ParkingBoy parkingBoy = getParkingBoy(parkingBoyId);
         if (parkingBoy == null) {
+            lastErrorMessage = createParkingBoyNotExistedMessage(parkingBoyId);
             return null;
         }
 
@@ -46,11 +47,16 @@ public class ParkingLotManager {
     public Car fetch(ParkingTicket ticket, String parkingBoyId) {
         ParkingBoy parkingBoy = getParkingBoy(parkingBoyId);
         if (parkingBoy == null) {
+            lastErrorMessage = createParkingBoyNotExistedMessage(parkingBoyId);
             return null;
         }
         Car fetched = parkingBoy.fetch(ticket);
         lastErrorMessage = parkingBoy.getLastErrorMessage();
         return fetched;
+    }
+
+    private String createParkingBoyNotExistedMessage(String parkingBoyId) {
+        return String.format("Cannot find parking boy: %s", parkingBoyId);
     }
 
     private ParkingBoy getParkingBoy(String parkingBoyId) {
