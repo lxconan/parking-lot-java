@@ -8,6 +8,10 @@ import com.oocl.cultivation.ParkingLot;
 import java.util.stream.IntStream;
 
 class ParkingLotFactory {
+    static ParkingLot createFullParkingLot() {
+        return createFullParkingLot(10);
+    }
+
     @SuppressWarnings("SameParameterValue")
     static ParkingLot createFullParkingLot(int capacity) {
         return createParkingLot(capacity, capacity);

@@ -6,6 +6,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static com.oocl.cultivation.test.ParkingLotFactory.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingBoyCommonFacts {
@@ -21,8 +22,7 @@ class ParkingBoyCommonFacts {
     @ParameterizedTest
     @MethodSource("createParkingBoys")
     void should_park_a_car_to_a_parking_lot_and_get_it_back(ParkingBoy parkingBoy) {
-        ParkingLot parkingLot = ParkingLotFactory.createEmptyParkingLot();
-        parkingBoy.addParkingLot(parkingLot);
+        parkingBoy.addParkingLot(createEmptyParkingLot());
         Car car = new Car();
 
         ParkingTicket ticket = parkingBoy.park(car);
@@ -34,8 +34,7 @@ class ParkingBoyCommonFacts {
     @ParameterizedTest
     @MethodSource("createParkingBoys")
     void should_not_display_error_message_if_park_and_fetch_are_succeeded(ParkingBoy parkingBoy) {
-        ParkingLot parkingLot = ParkingLotFactory.createEmptyParkingLot();
-        parkingBoy.addParkingLot(parkingLot);
+        parkingBoy.addParkingLot(createEmptyParkingLot());
         Car car = new Car();
         ParkingTicket invalidTicket = new ParkingTicket();
 
@@ -55,8 +54,7 @@ class ParkingBoyCommonFacts {
     @ParameterizedTest
     @MethodSource("createParkingBoys")
     void should_park_multiple_cars_to_a_parking_lot_and_get_them_back(ParkingBoy parkingBoy) {
-        ParkingLot parkingLot = ParkingLotFactory.createEmptyParkingLot();
-        parkingBoy.addParkingLot(parkingLot);
+        parkingBoy.addParkingLot(createEmptyParkingLot());
         Car firstCar = new Car();
         Car secondCar = new Car();
 
@@ -73,22 +71,20 @@ class ParkingBoyCommonFacts {
     @ParameterizedTest
     @MethodSource("createParkingBoys")
     void should_not_fetch_any_car_once_ticket_is_wrong(ParkingBoy parkingBoy) {
-        ParkingLot parkingLot = ParkingLotFactory.createEmptyParkingLot();
-        parkingBoy.addParkingLot(parkingLot);
+        parkingBoy.addParkingLot(createEmptyParkingLot());
         Car car = new Car();
         ParkingTicket wrongTicket = new ParkingTicket();
 
-        ParkingTicket ticket = parkingBoy.park(car);
+        ParkingTicket validTicket = parkingBoy.park(car);
 
         assertNull(parkingBoy.fetch(wrongTicket));
-        assertSame(car, parkingBoy.fetch(ticket));
+        assertSame(car, parkingBoy.fetch(validTicket));
     }
 
     @ParameterizedTest
     @MethodSource("createParkingBoys")
     void should_query_message_once_the_ticket_is_wrong(ParkingBoy parkingBoy) {
-        ParkingLot parkingLot = ParkingLotFactory.createEmptyParkingLot();
-        parkingBoy.addParkingLot(parkingLot);
+        parkingBoy.addParkingLot(createEmptyParkingLot());
         ParkingTicket wrongTicket = new ParkingTicket();
 
         parkingBoy.fetch(wrongTicket);
@@ -100,8 +96,7 @@ class ParkingBoyCommonFacts {
     @ParameterizedTest
     @MethodSource("createParkingBoys")
     void should_not_fetch_any_car_once_ticket_is_not_provided(ParkingBoy parkingBoy) {
-        ParkingLot parkingLot = ParkingLotFactory.createEmptyParkingLot();
-        parkingBoy.addParkingLot(parkingLot);
+        parkingBoy.addParkingLot(createEmptyParkingLot());
         Car car = new Car();
 
         ParkingTicket ticket = parkingBoy.park(car);
@@ -113,8 +108,7 @@ class ParkingBoyCommonFacts {
     @ParameterizedTest
     @MethodSource("createParkingBoys")
     void should_query_message_once_ticket_is_not_provided(ParkingBoy parkingBoy) {
-        ParkingLot parkingLot = ParkingLotFactory.createEmptyParkingLot();
-        parkingBoy.addParkingLot(parkingLot);
+        parkingBoy.addParkingLot(createEmptyParkingLot());
 
         parkingBoy.fetch(null);
 
@@ -126,8 +120,7 @@ class ParkingBoyCommonFacts {
     @ParameterizedTest
     @MethodSource("createParkingBoys")
     void should_not_fetch_any_car_once_ticket_has_been_used(ParkingBoy parkingBoy) {
-        ParkingLot parkingLot = ParkingLotFactory.createEmptyParkingLot();
-        parkingBoy.addParkingLot(parkingLot);
+        parkingBoy.addParkingLot(createEmptyParkingLot());
         Car car = new Car();
 
         ParkingTicket ticket = parkingBoy.park(car);
@@ -139,8 +132,7 @@ class ParkingBoyCommonFacts {
     @ParameterizedTest
     @MethodSource("createParkingBoys")
     void should_query_error_message_for_used_ticket(ParkingBoy parkingBoy) {
-        ParkingLot parkingLot = ParkingLotFactory.createEmptyParkingLot();
-        parkingBoy.addParkingLot(parkingLot);
+        parkingBoy.addParkingLot(createEmptyParkingLot());
         Car car = new Car();
 
         ParkingTicket ticket = parkingBoy.park(car);
@@ -156,8 +148,7 @@ class ParkingBoyCommonFacts {
     @ParameterizedTest
     @MethodSource("createParkingBoys")
     void should_not_park_cars_to_parking_lot_if_there_is_not_enough_position(ParkingBoy parkingBoy) {
-        ParkingLot parkingLot = ParkingLotFactory.createFullParkingLot(1);
-        parkingBoy.addParkingLot(parkingLot);
+        parkingBoy.addParkingLot(createFullParkingLot());
 
         ParkingTicket ticket = parkingBoy.park(new Car());
 
@@ -167,8 +158,7 @@ class ParkingBoyCommonFacts {
     @ParameterizedTest
     @MethodSource("createParkingBoys")
     void should_get_message_if_there_is_not_enough_position(ParkingBoy parkingBoy) {
-        ParkingLot parkingLot = ParkingLotFactory.createFullParkingLot(1);
-        parkingBoy.addParkingLot(parkingLot);
+        parkingBoy.addParkingLot(createFullParkingLot());
 
         parkingBoy.park(new Car());
 
@@ -178,9 +168,7 @@ class ParkingBoyCommonFacts {
     @ParameterizedTest
     @MethodSource("createParkingBoys")
     void should_not_park_when_all_parking_lots_are_full(ParkingBoy parkingBoy) {
-        ParkingLot firstParkingLot = ParkingLotFactory.createFullParkingLot(1);
-        ParkingLot secondParkingLot = ParkingLotFactory.createFullParkingLot(1);
-        parkingBoy.addParkingLot(firstParkingLot, secondParkingLot);
+        parkingBoy.addParkingLot(createFullParkingLot(), createFullParkingLot());
 
         ParkingTicket ticket = parkingBoy.park(new Car());
 
@@ -191,8 +179,8 @@ class ParkingBoyCommonFacts {
     @ParameterizedTest
     @MethodSource("createParkingBoys")
     void should_parking_in_the_second_parking_lot_if_the_first_is_full(ParkingBoy parkingBoy) {
-        ParkingLot firstFullParkingLot = ParkingLotFactory.createFullParkingLot(2);
-        ParkingLot secondParkingLot = ParkingLotFactory.createEmptyParkingLot(3);
+        ParkingLot firstFullParkingLot = createFullParkingLot();
+        ParkingLot secondParkingLot = createEmptyParkingLot(3);
         parkingBoy.addParkingLot(firstFullParkingLot, secondParkingLot);
 
         parkingBoy.park(new Car());
